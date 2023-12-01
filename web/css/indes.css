@@ -1,0 +1,302 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    background-image: linear-gradient(120deg, #A59ACA, #F7CDBC);
+    overflow: hidden;
+}
+
+.container {
+    position: absolute;
+    height: 420px;
+    width: 600px;
+    background-color: rgba(255, 255, 255, .9);
+    /* 先通过 top: 50%; left: 50%; 将元素的左上角移到其容器的中心 */
+    /* 然后再通过 translate(-50%, -50%) 向左和向上移动元素的一半宽度和一半高度 */
+    /* 以此达到完全居中的效果，这里先-30%，之后搭配.container-show借助js有个载入的效果 */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    /* 设置圆角半径为10px，实现圆角效果 */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(17, 39, 59, 0.8);
+    border: 1px solid rgba(17, 39, 59, 1);
+    overflow: hidden;
+    /* 设置盒模型为border-box，以确保元素的宽度和高度包括边框和内边距 */
+    box-sizing: border-box;
+    /* 设置初始不透明度为0，即完全透明 */
+    opacity: 0;
+    /* 设置过渡效果的持续时间为1秒 */
+    transition: 1s;
+}
+
+/* 搭配js实现载入效果 */
+.container-show {
+    transform: translate(-50%,-50%) ;
+    opacity: 1;
+}
+
+
+/* -----------start登录和注册的通用部分------------ */
+/* 标题 */
+.title {
+    margin-top: 10px;
+    position: relative;
+    height: 40px;
+    width: 100%;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 文本转换为大写 */
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 3px;
+    transition: .4s;
+}
+/* 输入框部分 */
+.input {
+    width: 400px;
+    height: 45px;
+    position: relative;
+    margin: 40px auto;
+}
+/* 输入框 */
+input {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-left: 15px;
+    font-size: 16px;
+    /* 背景颜色为具有40%不透明度的白色 */
+    background-color: rgba(255, 255, 255, 0.4);
+    /* 设置圆角为45像素，以实现圆形输入框效果 */
+    border-radius: 45px;
+    /* 过渡效果持续时间为0.4秒 */
+    transition: .4s;
+}
+/* 按钮 */
+.btn {
+    height: 50px;
+    width: 160px;
+    position: relative;
+    margin: -10px auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, .4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .4s;
+}
+/* 注册登录切换按钮 */
+.change-box {
+    position: absolute;
+    /* 刚开始隐藏 */
+    height: 0px;
+    width: 100%;
+    /* 使用多边形裁剪路径，实现特殊形状 */
+    clip-path: polygon(100% 50%, 50% 100%, 100% 100%);
+    bottom: 0px;
+    transition: .4s;
+}
+.change-btn {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 20px;
+    /* 初始状态下隐藏按钮 */
+    display: none;
+    font-weight: 500;
+}
+.change-btn:hover {
+    /* 鼠标悬停时添加文本阴影效果，增加立体感 */
+    text-shadow: 0px 0px 3px rgba(200, 200, 200, .8);
+    cursor: pointer;
+}
+
+/* 鼠标进入container整体的那个给切换按钮让位置的效果 */
+.container:hover .title {
+    /* 标题变小 */
+    font-size: 20px;
+}
+.container:hover input {
+    /* 上移 */
+    transform: translate(0, -30%);
+}
+.container:hover .btn {
+    /* 上移且变小 */
+    height: 30px;
+    width: 90px;
+    transform: translate(0,-30%);
+    font-size: 12px;
+}
+.container:hover .change-box {
+    /* 出现 */
+    height: 200px;
+}
+.container:hover .change-btn {
+    /* 出现 */
+    display: block;
+}
+/* -----------finish登录和注册的通用部分------------ */
+
+/* -----------------start登录部分----------------- */
+.login-box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(17, 39, 59, 0.8);
+    transition: .4s;
+    z-index: 1;
+    /* 元素的左上角作为变换的锚点。这样可以实现从左上角开始的动画效果。 */
+    transform-origin: 0 100%;
+}
+/* 登录标题加阴影 */
+.login-box .title {
+    color: white;
+    text-shadow: 0px 0px 7px rgba(255, 255, 255, .9);
+}
+/* input输入状态阴影 */
+.login-box input:focus {
+    box-shadow: 0 0 10px rgba(1,1,1, .8);
+}
+.login-box input {
+    /* 将光标的颜色设置为白色 */
+    caret-color: white;
+    color: rgba(255, 255, 255, 0.8);
+}
+.login-btn:hover {
+    color: white;
+    background-color: #57606f;
+    box-shadow: rgba(0, 0, 0, 0.1);
+    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.1);
+}
+.login-change {
+    background-color: rgba(255, 255, 255, .8);
+}
+/* -----------------finish登录部分----------------- */
+
+
+/* ------------------start注册部分----------------- */
+.sign-box {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, .8);
+    transform-origin: 0 100%;
+    /* 在元素上应用一个旋转变换，使其顺时针旋转90度 */
+    transform: rotate(90deg);
+    transition: .4s;
+    z-index: 1;
+}
+.sign-box  .title {
+    text-shadow: 0 0 10px rgba(200, 200, 200, .8);
+    font-weight: 500;
+}
+.sign-box input {
+    box-shadow: 0 0 3px black;
+}
+.sign-box .btn {
+    color: black;
+    background-color: #e1dddf;
+    transition:.5s;
+}
+.sign-box .btn:hover {
+    color: white;
+    background-color: #4781C3;
+}
+.sign-change {
+    background-color: rgba(17, 39, 59, 0.8);
+}
+.toLogin {
+    color: white;
+}
+/* ------------------finish注册部分----------------- */
+
+
+/* ------------------start那三个小圆点----------------- */
+.apple-btn {
+    position: absolute;
+    height: 15px;
+    width: 65px;
+    top: 3px;
+
+}
+.apple-btn li{
+    list-style: none;
+    position: relative;
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    opacity: 0;
+}
+
+.login-apple li{
+    left: 5px;
+    float: left;
+}
+
+.sign-apple li {
+    right: 5px;
+    float: right;
+}
+
+.sign-apple {
+    right: 5px;
+}
+
+li:nth-child(2) {
+    margin: 0px 2px
+}
+
+.red-btn {
+    background-color: #F03752;
+    transition: .3s;
+    transform: translate(0, -50%);
+}
+
+.yellow-btn {
+    background-color: #F3993A;
+    /* transition-delay: .2s; */
+    transition: .6s;
+    transform: translate(0, -50%);
+}
+
+.green-btn {
+    background-color: #108B96;
+    transition: .9s;
+    transform: translate(0, -50%);
+}
+
+.container:hover .red-btn {
+    opacity: 1;
+    transform: translate(0,0);
+}
+.container:hover .yellow-btn {
+    opacity: 1;
+    transform: translate(0,0);
+}
+.container:hover .green-btn {
+    opacity: 1;
+    transform: translate(0,0);
+}
+/* ------------------finish那三个小圆点----------------- */
+
+
+/* 结合js的切换效果——旋转 */
+.animate_login {
+    /* 元素逆时针旋转90度 */
+    transform: rotate(-90deg);
+}
+.animate_sign {
+    /* 将元素恢复到初始状态 */
+    transform: rotate(0deg) !important;
+}
