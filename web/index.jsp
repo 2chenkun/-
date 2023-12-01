@@ -14,7 +14,7 @@
   <body>
   <div class="container">
     <!-- 登录 -->
-    <form action="<%=request.getContextPath()%>/user/login" method="post">
+    <form action="<%=request.getContextPath()%>/user/denglu" method="post">
       <div class="login-box">
         <div class="apple-btn login-apple">
           <li class="red-btn"></li>
@@ -40,7 +40,7 @@
       </div>
     </form>
     <!-- 注册 -->
-    <form action="<%=request.getContextPath()%>/user/login">
+    <form action="<%=request.getContextPath()%>/user/login" method="post">
       <div class="sign-box">
         <div class="apple-btn sign-apple">
           <li class="red-btn"></li>
@@ -49,13 +49,13 @@
         </div>
         <div class="title">注册</div>
         <div class="input">
-          <input type="text" id="sign-user" placeholder="输入一个账号">
+          <input type="text" id="sign-user" placeholder="输入一个账号" name="sign-user">
         </div>
         <div class="input">
-          <input type="password" id="sign-password" placeholder="输入密码">
+          <input type="password" id="sign-password" placeholder="输入密码" name="sign-password">
         </div>
         <div class="input">
-          <input type="password" id="sign-password1" placeholder="确认密码">
+          <input type="password" id="sign-password1" placeholder="确认密码" name="sign-password1">
         </div>
         <button class="btn login-btn">注册</button>
         <!-- <div class="btn sign-btn">
