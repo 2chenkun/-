@@ -6,9 +6,21 @@ import java.util.Objects;
  * 一个普通的java类，这个java类可以封装零散的数据。代表了一个部门对象。
  */
 public class Dept {
+
+
     private String deptno;
     private String dname;
     private String loc;
+    private String  name;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
 
     public Dept() {
     }
@@ -43,6 +55,7 @@ public class Dept {
                 "deptno='" + deptno + '\'' +
                 ", dname='" + dname + '\'' +
                 ", loc='" + loc + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -51,11 +64,11 @@ public class Dept {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Dept dept = (Dept) o;
-        return Objects.equals(deptno, dept.deptno) && Objects.equals(dname, dept.dname) && Objects.equals(loc, dept.loc);
+        return Objects.equals(deptno, dept.deptno) && Objects.equals(dname, dept.dname) && Objects.equals(loc, dept.loc) && Objects.equals(name, dept.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(deptno, dname, loc);
+        return Objects.hash(deptno, dname, loc, name);
     }
 }

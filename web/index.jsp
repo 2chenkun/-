@@ -15,7 +15,7 @@
   <div class="container">
     <!-- 登录 -->
     <form action="<%=request.getContextPath()%>/user/denglu" method="post">
-      <div class="login-box">
+        <div class="login-box">
         <div class="apple-btn login-apple">
           <li class="red-btn"></li>
           <li class="yellow-btn"></li>

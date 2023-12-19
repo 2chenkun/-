@@ -7,9 +7,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 
 import java.io.IOException;
 import java.sql.*;
+
+import static java.lang.System.out;
 
 @WebServlet("/user/denglu")
 public class UserServlet  extends HttpServlet {
@@ -18,6 +21,9 @@ public class UserServlet  extends HttpServlet {
         boolean flag = false;
         String username = request.getParameter("login-user");
         String password = request.getParameter("login-password");
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
 
         // 连接数据库验证用户名和密码
         Connection conn = null;
@@ -33,23 +39,15 @@ public class UserServlet  extends HttpServlet {
             rs = ps.executeQuery();
             if (rs.next()) {
                 // 登录成功
-                flag = true;
+                response.sendRedirect(request.getContextPath() + "/dept/list");
             } else {
-                flag = false;
+                out.write("<script>alert('账号或者密码错误'); window.location='http://localhost:8080/guanli/' </script>");
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
             DBUtil.close(conn, ps, rs);
-        }
-
-        if (flag) {
-            // 登录成功
-           response.sendRedirect(request.getContextPath() + "/dept/list");
-        } else {
-            // 登录失败
-           response.sendRedirect(request.getContextPath() + "/error.jsp");
         }
     }
 }
