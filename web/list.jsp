@@ -33,10 +33,11 @@
 		overflow: hidden;
 	}
 
-	a{
+	a {
 		color: black;
 		text-decoration: none;
 	}
+
 	.navbar {
 		/* 相对定位 */
 		position: relative;
@@ -173,32 +174,39 @@
 	.navbar input:checked~ul li a span {
 		font-size: 14px;
 	}
-	button{
+
+	button {
 		height: 30%;
 		width: 18%;
 		margin-left: 5%;
 	}
-	.td1{
+
+	.td1 {
 		padding-left: 12%;
-		padding-top: 15px;
+		padding-top: 35px;
+		padding-bottom: 20px;
 	}
-	.td2{
+
+	.td2 {
 		padding-left: 11%;
 		padding-top: 15px;
 	}
 
 	table tbody {
 		display: block;
-		height:100%;
+		height: 90%;
 		overflow-y: auto;
 		overflow-x: hidden;
 	}
+
 	table thead,
-	tbody tr {
+	tr {
 		display: table;
-		width: 100%;
-		table-layout: fixed;
+		width:99%;
+		table-layout:fixed;
+
 	}
+
 	table thead th {
 		background: #00ccff;
 	}
@@ -206,8 +214,12 @@
 		border-top:0;
 		border-right:1px solid #999;
 		border-bottom:1px solid #999;
-		border-left:0;
+		border-left: 0;
 	}
+	.td1 {
+		border-left: 1px solid #999;
+	}
+
 </style>
 <body>
 <div class="navbar">
@@ -217,7 +229,7 @@
 	</label>
 	<ul>
 		<li>
-			<img src="./indexhead_sprite.png" alt="">
+			<img src="tou.jpg" alt="">
 			<span>欢迎您！管理员</span>
 		</li>
 		<li>
@@ -247,13 +259,14 @@
 	</ul>
 		<div class="main">
 			<table border="1px" align="center" width="100%" height="100%">
-				<tr>
-					<th>序号</th>
-					<th>部门编号</th>
-					<th>部门名称</th>
-					<th>操作</th>
-				</tr>
-
+				<thead>
+					<tr class="tr">
+						<th>序号</th>
+						<th>部门编号</th>
+						<th>部门名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
 				<%
 					List<Dept> deptList = (List<Dept>) request.getAttribute("deptList");
 					// 循环遍历
@@ -274,7 +287,6 @@
 						<button><a href="javascript:void(0)" onclick="del(<%=dept.getDeptno()%>)">删除</a></button>
 						<button><a href="<%=request.getContextPath()%>/dept/detail?f=edit&dno=<%=dept.getDeptno() %>">修改</a></button>
 						<button><a href="<%=request.getContextPath()%>/dept/detail?f=detail&dno=<%=dept.getDeptno() %>">详情</a></button>
-						<button><a href="<%=request.getContextPath()%>/add.jsp">新增部门</a></button>
 					</td>
 				</tr>
 				<%
@@ -284,5 +296,4 @@
 		</div>
 	</div>
 </body>
-
 </html>

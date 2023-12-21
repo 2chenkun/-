@@ -11,7 +11,6 @@
 		<title>修改部门</title>
 	</head>
 	<body>
-	<h3>欢迎<%=session.getAttribute("username")%></h3>
 		<h1>修改部门</h1>
 		<hr >
 		<form action="<%=request.getContextPath()%>/dept/modify" method="post">
