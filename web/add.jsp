@@ -204,7 +204,7 @@
             <span>欢迎您！管理员</span>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="<%=request.getContextPath()%>/dept/list">
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>部门列表</span>
             </a>

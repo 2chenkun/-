@@ -17,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/dept/list", "/dept/detail", "/dept/delete", "/dept/save", "/dept/modify"})
+@WebServlet({"/dept/list", "/dept/detail", "/dept/delete", "/dept/save", "/dept/modify", "/dept/list1"})
 public class DeptServlet extends HttpServlet {
 
     @Override
@@ -64,6 +64,8 @@ public class DeptServlet extends HttpServlet {
             doSave(request, response);
         }else if("/dept/modify".equals(servletPath)){
             doModify(request, response);
+        }else  if("/dept/list1".equals(servletPath)){
+            doList(request, response);
         }
 
     }

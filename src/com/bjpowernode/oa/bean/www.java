@@ -9,4 +9,5 @@ public class www {
         String transformDate=simpleDateFormat.format(new Date());
         System.out.println(transformDate);
     }
+
 }
