@@ -1,13 +1,14 @@
 package com.bjpowernode.oa.web.action;
 
 import com.bjpowernode.oa.bean.Dept;
+import com.bjpowernode.oa.bean.Staff;
+import com.bjpowernode.oa.bean.Staff1;
 import com.bjpowernode.oa.utils.DBUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/dept/list", "/dept/detail", "/dept/delete", "/dept/save", "/dept/modify", "/dept/list1"})
+@WebServlet({"/dept/list", "/dept/detail", "/dept/delete", "/dept/save", "/dept/modify", "/dept/list1", "/dept/list2"})
 public class DeptServlet extends HttpServlet {
 
     @Override
@@ -65,7 +66,9 @@ public class DeptServlet extends HttpServlet {
         }else if("/dept/modify".equals(servletPath)){
             doModify(request, response);
         }else  if("/dept/list1".equals(servletPath)){
-            doList(request, response);
+            doList1(request, response);
+        }else if("/dept/list2".equals(servletPath)){
+            doList2(request, response);
         }
 
     }
@@ -257,7 +260,103 @@ public class DeptServlet extends HttpServlet {
         request.getRequestDispatcher("/list.jsp").forward(request, response);
 
     }
+    private void doList1(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 准备一个容器，用来专门存储管理
+        List<Staff> depts = new ArrayList<>();
 
+        // 连接数据库，查询所有的部门信息
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            // 获取连接
+            conn = DBUtil.getConnection();
+            // 执行查询语句
+            String sql = "select name,dname,time,job from staff";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            // 遍历结果集
+            while (rs.next()) {
+                // 从结果集中取出。
+                String name = rs.getString("name");
+                String dname = rs.getString("dname");
+                String time = rs.getString("time");
+                String job = rs.getString("job");
+
+                // 将以上的零散的数据封装成java对象。
+               Staff staff = new Staff();
+                staff.setName(name);
+                staff.setDname(dname);
+                staff.setTime(time);
+                staff.setJob(job);
+
+                // 将管理对象放到list集合当中
+                depts.add(staff);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 释放资源
+            DBUtil.close(conn, ps, rs);
+        }
+
+        // 将一个集合放到请求域当中
+        request.setAttribute("deptList1", depts);
+
+        // 转发（不要重定向）
+        request.getRequestDispatcher("/list1.jsp").forward(request, response);
+
+    }
+
+    private void doList2(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // 准备一个容器，用来专门存储管理
+        List<Staff1> depts = new ArrayList<>();
+
+        // 连接数据库，查询所有的部门信息
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try {
+            // 获取连接
+            conn = DBUtil.getConnection();
+            // 执行查询语句
+            String sql = "select name,dname,time,wages from staff1";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            // 遍历结果集
+            while (rs.next()) {
+                // 从结果集中取出。
+                String name = rs.getString("name");
+                String dname = rs.getString("dname");
+                String time = rs.getString("time");
+                String wages = rs.getString("wages");
+
+                // 将以上的零散的数据封装成java对象。
+                Staff1 staff1 = new Staff1();
+                staff1.setName(name);
+                staff1.setDname(dname);
+                staff1.setTime(time);
+                staff1.setWages(wages);
+
+                // 将管理对象放到list集合当中
+                depts.add(staff1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            // 释放资源
+            DBUtil.close(conn, ps, rs);
+        }
+
+        // 将一个集合放到请求域当中
+        request.setAttribute("deptList2", depts);
+
+        // 转发（不要重定向）
+        request.getRequestDispatcher("/list2.jsp").forward(request, response);
+
+    }
     /**
      * 修改部门
      * @param request

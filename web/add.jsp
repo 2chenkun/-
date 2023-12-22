@@ -200,7 +200,7 @@
     </label>
     <ul>
         <li>
-            <img src="tou.jpg" alt="">
+            <img src="img/tou.jpg" alt="">
             <span>欢迎您！管理员</span>
         </li>
         <li>
@@ -210,13 +210,13 @@
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="<%=request.getContextPath()%>/dept/list1">
                 <i class="fa fa-user-circle-o" aria-hidden="true"></i>
                 <span>管理列表</span>
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="<%=request.getContextPath()%>/dept/list2">
                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                 <span>员工列表</span>
             </a>

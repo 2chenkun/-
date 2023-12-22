@@ -1,13 +1,10 @@
-<%@ page import="com.bjpowernode.oa.bean.Dept" %>
+<%@ page import="com.bjpowernode.oa.bean.Staff1" %>
 <%@ page import="java.util.List" %>
 
-<%--毙掉session对象。写上这个，内置对象就不能用了。--%>
-<%--<%@page session="false" %>--%>
+
 
 <%@page contentType="text/html;charset=UTF-8"%>
-<%--<%@page import="java.util.List, com.bjpowernode.oa.bean.Dept" %>--%>
-<%--<%@page import="java.util.List" %>
-<%@page import="com.bjpowernode.oa.bean.Dept" %>--%>
+
 
 <!DOCTYPE html>
 <html>
@@ -182,14 +179,12 @@
 	}
 
 	.td1 {
-		padding-left: 12%;
 		padding-top: 35px;
 		padding-bottom: 20px;
 	}
 
-	.td2 {
-		padding-left: 11%;
-		padding-top: 15px;
+	tr td{
+		text-align: center;
 	}
 
 	table tbody {
@@ -202,7 +197,7 @@
 	table thead,
 	tr {
 		display: table;
-		width:99%;
+		width: 99%;
 		table-layout:fixed;
 
 	}
@@ -232,8 +227,8 @@
 			<img src="http://localhost:8080/guanli/img/tou.jpg" alt="">
 			<span>欢迎您！管理员</span>
 		</li>
-		<li class="li1">
-			<a href="javascript:void(0)">
+		<li>
+			<a href="<%=request.getContextPath()%>/dept/list">
 				<i class="fa fa-home" aria-hidden="true"></i>
 				<span>部门列表</span>
 			</a>
@@ -245,7 +240,7 @@
 			</a>
 		</li>
 		<li>
-			<a href="<%=request.getContextPath()%>/dept/list2">
+			<a href="">
 				<i class="fa fa-shopping-bag" aria-hidden="true"></i>
 				<span>员工列表</span>
 			</a>
@@ -262,16 +257,17 @@
 				<thead>
 					<tr class="tr">
 						<th>序号</th>
-						<th>部门编号</th>
 						<th>部门名称</th>
-						<th>操作</th>
+						<th>名字</th>
+						<th>入职时间</th>
+						<th>工资(已交税)</th>
 					</tr>
 				</thead>
 				<%
-					List<Dept> deptList = (List<Dept>) request.getAttribute("deptList");
+					List<Staff1> staffList = (List<Staff1>) request.getAttribute("deptList2");
 					// 循环遍历
 					int i = 0;
-					for (Dept dept : deptList) {
+					for (Staff1 staff1 : staffList) {
 //					// 在后台输出
 //					System.out.println(dept.getDname());
 //					// 把部门名输出到浏览器
@@ -281,27 +277,10 @@
 				%>
 				<tr>
 					<td class="td1"><%=++i%></td>
-					<td class="td2"><%=dept.getDeptno()%></td>
-					<td class="td2"><%=dept.getDname()%></td>
-					<script type="text/javascript">
-						function del(dno){
-							var ok = window.confirm("亲，删了不可恢复哦！");
-							if(ok){
-								document.location.href = "<%=request.getContextPath()%>/dept/delete?deptno=" + dno;
-							}
-						}
-						function xiugai(){
-							window.location="<%=request.getContextPath()%>/dept/detail?f=edit&dno=<%=dept.getDeptno() %>";
-						}
-						function xiangqing(){
-							window.location="<%=request.getContextPath()%>/dept/detail?f=detail&dno=<%=dept.getDeptno() %>";
-						}
-					</script>
-					<td>
-						<button onclick="del(<%=dept.getDeptno()%>)">删除</button>
-						<button onclick="xiugai()">修改</button>
-						<button onclick="xiangqing()">详情</button>
-					</td>
+					<td class="td2"><%=staff1.getDname()%></td>
+					<td class="td2"><%=staff1.getName()%></td>
+					<td class="td2"><%=staff1.getTime()%></td>
+					<td class="td2"><%=staff1.getWages()%>元</td>
 				</tr>
 				<%
 					}
